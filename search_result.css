@@ -1,0 +1,35 @@
+table{
+    width:auto;
+    margin:0;
+}
+
+#list_wrap{
+    width:800px;
+    border: 1px solid black;
+    margin-bottom: 1px;
+    
+}
+
+#left{
+    width:60%;
+    float:left;
+}
+
+#right{
+    width:40%;
+    float:right;
+}
+
+#right ul li{
+    line-height: 25px;
+}
+
+#list_wrap::after{
+    content: "";
+    clear: both;
+    display: block;
+}
+
+li{
+    list-style:none;
+}

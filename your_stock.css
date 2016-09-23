@@ -1,0 +1,12 @@
+table, th, td{
+    border: 1px black solid;
+    border-collapse: collapse;
+}
+
+th{
+    background: orange;
+}
+
+.left{
+    text-align:right;
+}
