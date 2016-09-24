@@ -70,8 +70,8 @@ require_once('db_connect.php');
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="/stockin/css/search_result.css">
-    <link rel="stylesheet" href="/stockin/css/reset.css">
+    <link rel="stylesheet" href="search_result.css">
+    <link rel="stylesheet" href="reset.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
 <body>
