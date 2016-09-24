@@ -1,10 +1,11 @@
 <?php
-    $db_user = 'root';
-    $db_pass = 'yuta81bb';
-    $db_host = 'localhost';
-    $db_name = 'stokin_db';
+    $db_user = 'b60ae5b716dd01';
+    $db_pass = 'd3e554b7';
+    $db_host = 'us-cdbr-iron-east-04.cleardb.net';
+    $db_name = 'heroku_43b33c2f7cca19e';
     $db_type = 'mysql';
-
+    
+    
 $connect = mysqli_connect($db_host,$db_user,$db_pass) or die('Could not connect to mysql server.' );
 mysqli_select_db($connect,$db_name) or die('Could not select database.');
 mysqli_set_charset($connect, "utf8");
