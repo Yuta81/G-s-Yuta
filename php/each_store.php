@@ -23,8 +23,6 @@ try{
     
 $stmh = $pdo->prepare($sql);
 $stmh->bindValue(':store_name', $store_name, PDO::PARAM_STR);
-$result = $stmh->execute();
-    var_dump($result);
     
 }catch(PDOException $r){
         print "エラー".$r->getMessage();
@@ -49,7 +47,7 @@ $result = $stmh->execute();
 <?php
         
     $row = $stmh->fetch(PDO::FETCH_ASSOC);         
-           var_dump($row['address']);
+           var_dump($row['store_name']);
 ?>
 
   <tr>
