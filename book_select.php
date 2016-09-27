@@ -39,6 +39,7 @@ $book_search_key = '%'.$_POST['book_name'].'%';
             $stmt->execute();
             $count = $stmt->rowCount();
             print '検索結果は'.$count.'件です。';
+      var_dump($stmt);
          
      }catch(PDOException $r){
         print "エラー".$r->getMessage();
