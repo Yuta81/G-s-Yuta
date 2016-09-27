@@ -54,7 +54,7 @@ if($result > 0){
     
     if($result2 == true){
         
-        print '登録完了完了しました！　<a href="index.php">ホームページ</a>';
+        print '登録完了完了しました！　<a href="stock_search.php">ホームページ</a>';
         
     }else{
         
