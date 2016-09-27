@@ -2,7 +2,6 @@
 
 include("include.php");
 
-var_dump($_GET['store_name']);
 
 if($_GET['store_name']){
     
@@ -49,7 +48,7 @@ $stmh->execute();
 <?php
         
     $row = $stmh->fetch(PDO::FETCH_ASSOC);         
-           
+           var_dump($row['address']);
 ?>
 
   <tr>
