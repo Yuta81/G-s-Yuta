@@ -30,7 +30,7 @@
 </head>
 <body>
    
-   <form action="/php/book_select.php" method="post">
+   <form action="book_select.php" method="post">
        
        <p>本の検索</p> 
        
