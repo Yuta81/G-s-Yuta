@@ -23,7 +23,8 @@ try{
     
 $stmh = $pdo->prepare($sql);
 $stmh->bindValue(':store_name', $store_name, PDO::PARAM_STR);
-$stmh->execute();
+$result = $stmh->execute();
+    var_dump($result);
     
 }catch(PDOException $r){
         print "エラー".$r->getMessage();
