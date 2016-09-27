@@ -2,9 +2,12 @@
 
 include("include.php");
 
+var_dump($_GET['store_name']);
+
 if($_GET['store_name']){
     
     $store_name = $_GET['store_name'];
+    
 }
 
 
