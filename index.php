@@ -16,7 +16,7 @@
           $("#book_name").keyup(function(e){
             e.preventDefault();
             var search_val = $("#book_name").val();
-            $.post("autocomp_for_book.php", {book_name : search_val}, function(data){
+            $.post("/php/autocomp_for_book.php", {book_name : search_val}, function(data){
               if(data.length>0){
                 $("#book_name").autocomplete({
                   source: data
