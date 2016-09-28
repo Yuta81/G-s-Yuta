@@ -30,3 +30,5 @@ foreach($string as $word){
 
 header("Content-Type: application/json; charset=utf-8");
 echo json_encode($words);
+
+?>
