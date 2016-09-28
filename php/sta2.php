@@ -115,7 +115,7 @@ require_once('db_connect.php');
                       <ul>
 
                        <li>店名: 
-                           <a href="each_store.php?store_name=<?= e($row['store_name']) ?>">
+                           <a href="each_store.php?store_name=<?= urlencode(e($row['store_name'])) ?>">
                                <?= e($row['store_name']) ?>
                            </a>
                        </li>
