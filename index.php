@@ -1,4 +1,8 @@
+<?php
 
+mb_language("Japanese");
+
+?>
 
 <!DOCTYPE html>
 <html lang="ja">
