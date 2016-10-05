@@ -22,7 +22,7 @@ session_start();
           $("#book_name").keyup(function(e){
             e.preventDefault();
             var search_val = $("#book_name").val();
-            $.post("/php/autocomp_for_book.php", {book_name : search_val}, function(data){
+            $.post("php/autocomp_for_book.php", {book_name : search_val}, function(data){
               if(data.length>0){
                 $("#book_name").autocomplete({
                   source: data
@@ -38,11 +38,11 @@ session_start();
   
   <?php
     
-    require_once('/php/general_user_log_status.php');
+    require_once('php/general_user_log_status.php');
     
  ?>
    
-   <form action="/php/book_select.php" method="post">
+   <form action="php/book_select.php" method="post">
        
        <p>本の検索</p> 
        
