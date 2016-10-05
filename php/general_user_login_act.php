@@ -55,7 +55,7 @@ if($row['email'] !== $email){
   $_SESSION["password"] = $row['password'];
   $_SESSION["age"] = $row['age'];
     
-  header("Location: /index.php");
+  header("Location: https://jaiko.herokuapp.com");
     
 }
 
