@@ -1,4 +1,4 @@
- <?php
+  <?php
 
 session_start();
 
@@ -200,6 +200,10 @@ function initMap(){
                               <input type="hidden" name="book_title" value="<?= e($row['book_title']) ?>">
                               <input type="hidden" name="lat" class="lat">
                               <input type="hidden" name="lon" class="lon">
+                              <input type="hidden" name="author" value="<?= e($row['author']) ?>">
+                              <input type="hidden" name="publish_date" value="<?= e($row['publish_date']) ?>">
+                              <input type="hidden" name="price" value="<?= e($row['price']) ?>">
+                              <input type="hidden" name="img" value="<?= e($row['img']) ?>">
                           </form>
                       </li> 
                       
@@ -218,6 +222,10 @@ function initMap(){
                               <input type="text" name="station_name" class="station_name">
                               <input type="submit" value="駅名から検索" placeholder="駅名を入力">
                               <input type="hidden" name="book_title" value="<?= e($row['book_title']) ?>">
+                              <input type="hidden" name="author" value="<?= e($row['author']) ?>">
+                              <input type="hidden" name="publish_date" value="<?= e($row['publish_date']) ?>">
+                              <input type="hidden" name="price" value="<?= e($row['price']) ?>">
+                              <input type="hidden" name="img" value="<?= e($row['img']) ?>">
                           </form>
                       </li>
                       
