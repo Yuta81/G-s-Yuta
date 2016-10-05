@@ -44,8 +44,8 @@ try{
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/your_stock.css">
+    <link rel="stylesheet" href="/stockin/css/reset.css">
+    <link rel="stylesheet" href="/stockin/css/your_stock.css">
 </head>
 <body>
    <h1><?=htmlspecialchars($_SESSION['user_name'])?>の在庫状況</h1>

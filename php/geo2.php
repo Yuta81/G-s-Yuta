@@ -2,12 +2,8 @@
 
 session_start();
 
-// mb_language("Japanese");
-// mb_internal_encoding("UTF-8");
-// mb_http_output("UTF-8");
-
-include('include.php');
-
+require_once('general_user_log_status.php');
+    
 
 /*現在地の緯度経度情報を代入*/
 $lat = $_POST['lat'];
@@ -18,7 +14,7 @@ $book_title = $_POST['book_title'];
 
         
 /*DB接続*/    
-    require_once('db_connect.php');
+require_once('db_connect.php');
     
 
 /*SQL*/           
@@ -33,7 +29,9 @@ $book_title = $_POST['book_title'];
          JOIN book_store AS K
          ON stock.store_id = K.id
          WHERE book_title LIKE :book_title
-         ORDER BY distance"; 
+         ORDER BY distance
+         
+         LIMIT 4"; 
         
          $stmt = $pdo->prepare($sql2);
          $stmt->bindValue(':book_title', $book_title, PDO::PARAM_STR);
@@ -61,8 +59,8 @@ $book_title = $_POST['book_title'];
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/search_result.css">
-    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/stockin/css/search_result.css">
+    <link rel="stylesheet" href="/stockin/css/reset.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC434MBbhe6MuEUVmTwJsCnp-jwL7grBYI&callback=initMap" async defer></script>
 </head>
@@ -85,10 +83,10 @@ $book_title = $_POST['book_title'];
                <div id="right">
                   <ul>
                       <li>タイトル: <?= e($row['book_title']) ?></li>
-                      <li>著者:   <?= e($row['author']) ?></li>
+                      <li>著者:   <a href="author.php?author=<?= e($row['author']) ?>"><?= e($row['author']) ?></a></li>
                       <li>価格:   <?= e($row['price']) ?> 円（税込）</li>
                       <li>出版社:  <?= e($row['publisher']) ?></li>
-                      <li>発行日:  <?= e($row['publish_date']) ?></li>
+                      <li>発売日:  <?= e($row['publish_date']) ?></li>
                       <li>ページ数:  <?= e($row['page']) ?></li>
                   </ul>
                    

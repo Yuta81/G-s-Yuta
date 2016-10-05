@@ -49,12 +49,13 @@ if($row['email'] !== $email){
   $_SESSION["chk_ssid"]  = session_id();
   $_SESSION["user_id"] = $row['id'];
   $_SESSION["general_user_name"] = $row['general_user_name'];
+  $_SESSION["address"] = $row['address'];
   $_SESSION["user_email"] = $row['email'];
   $_SESSION["gender"] = $row['gender'];
-  $_SESSION["address"] = $row['address'];
+  $_SESSION["password"] = $row['password'];
   $_SESSION["age"] = $row['age'];
-
-  header("Location: stock_search.php");
+    
+  header("Location: index.php");
     
 }
 

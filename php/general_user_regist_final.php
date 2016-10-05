@@ -1,5 +1,7 @@
 <?php
 
+include('include.php');
+
 /* 入力フォームからパラメータを取得 */
 $general_user_name = $_POST['general_user_name'];
 $address = $_POST['address'];

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>メールアドレス登録フォーム</title>
     
-    <h1>メールアドレス登録フォーム</h1>
+    <h1>仮登録用メールアドレス登録フォーム</h1>
+    <p>下記に入力頂いたメールアドレスに、本会員登録用のURLをお送りします。</p>
     
     <form action="email_confirm.php" method="post">
      

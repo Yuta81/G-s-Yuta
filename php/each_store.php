@@ -1,16 +1,13 @@
 <?php
 
-// mb_language("Japanese");
-// mb_internal_encoding("UTF-8");
-// mb_http_output("UTF-8");
+session_start();
 
-include("include.php");
+require_once('general_user_log_status.php');
 
 
 if($_GET['store_name']){
     
     $store_name = $_GET['store_name'];
-    
 }
 
 
@@ -27,6 +24,7 @@ try{
     
 $stmh = $pdo->prepare($sql);
 $stmh->bindValue(':store_name', $store_name, PDO::PARAM_STR);
+$stmh->execute();
     
 }catch(PDOException $r){
         print "エラー".$r->getMessage();
@@ -40,8 +38,8 @@ $stmh->bindValue(':store_name', $store_name, PDO::PARAM_STR);
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/search_result.css">
-    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/stockin/css/search_result.css">
+    <link rel="stylesheet" href="/stockin/css/reset.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
 <body>
@@ -51,7 +49,7 @@ $stmh->bindValue(':store_name', $store_name, PDO::PARAM_STR);
 <?php
         
     $row = $stmh->fetch(PDO::FETCH_ASSOC);         
-           var_dump($row['store_name']);
+           
 ?>
 
   <tr>

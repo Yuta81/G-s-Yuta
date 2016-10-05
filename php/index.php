@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -29,6 +35,12 @@
 
 </head>
 <body>
+  
+  <?php
+    
+    require_once('general_user_log_status.php');
+    
+ ?>
    
    <form action="book_select.php" method="post">
        
@@ -40,6 +52,7 @@
        
        
    </form>
+  
     
 </body>
 </html>

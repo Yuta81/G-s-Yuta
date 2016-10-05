@@ -19,7 +19,7 @@ if($password !== $password_confirm){
 }
 
 
-/* パスワードチェックの文字数をチェック*/
+/* パスワードの文字数をチェック*/
 if(strlen($password) < 6 || strlen($password) > 16){
     
     print "パスワードは6文字以上16文字以内でお願いします。";
