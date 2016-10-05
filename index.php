@@ -8,7 +8,7 @@ session_start();
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>TOP Page</title>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
