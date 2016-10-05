@@ -1,10 +1,14 @@
 
 
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>トップページ</title>
+    <title>Document</title>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -18,7 +22,7 @@
           $("#book_name").keyup(function(e){
             e.preventDefault();
             var search_val = $("#book_name").val();
-            $.post("php/autocomp_for_book.php", {book_name : search_val}, function(data){
+            $.post("autocomp_for_book.php", {book_name : search_val}, function(data){
               if(data.length>0){
                 $("#book_name").autocomplete({
                   source: data
@@ -31,8 +35,14 @@
 
 </head>
 <body>
+  
+  <?php
+    
+    require_once('general_user_log_status.php');
+    
+ ?>
    
-   <form action="/php/book_select.php" method="post">
+   <form action="book_select.php" method="post">
        
        <p>本の検索</p> 
        
@@ -42,6 +52,7 @@
        
        
    </form>
+  
     
 </body>
 </html>
