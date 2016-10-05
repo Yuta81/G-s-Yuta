@@ -1,13 +1,8 @@
 <?php
-
-//     mb_language("Japanese");
-//     mb_internal_encoding("UTF-8");
-//     mb_http_output("UTF-8");
-
-    $db_user = 'b60ae5b716dd01';
-    $db_pass = 'd3e554b7';
-    $db_host = 'us-cdbr-iron-east-04.cleardb.net';
-    $db_name = 'heroku_43b33c2f7cca19e';
+    $db_user = 'root';
+    $db_pass = 'yuta81bb';
+    $db_host = 'localhost';
+    $db_name = 'stokin_db';
     $db_type = 'mysql';
 
 $connect = mysqli_connect($db_host,$db_user,$db_pass) or die('Could not connect to mysql server.' );

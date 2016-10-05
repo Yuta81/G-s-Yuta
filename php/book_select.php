@@ -2,12 +2,8 @@
 
 session_start();
 
-// mb_language("Japanese");
-// mb_internal_encoding("UTF-8");
-// mb_http_output("UTF-8");
-
-include('include.php');
-
+require_once('general_user_log_status.php');
+    
 
 /*検索キーワードを代入*/
 $book_search_key = '%'.$_POST['book_name'].'%';
@@ -31,11 +27,13 @@ $book_search_key = '%'.$_POST['book_name'].'%';
              
          "SELECT 
          
-         book_title, author, price, isbn_10, img
+         book_title, author, price, isbn_10, img, publish_date
          
          FROM book
          
-         WHERE book_title LIKE :book_title OR author LIKE :author"; 
+         WHERE book_title LIKE :book_title OR author LIKE :author
+         
+         LIMIT 8"; 
         
             $stmt = $pdo->prepare($sql2);
             $stmt->bindValue(':book_title', $book_search_key, PDO::PARAM_STR);
@@ -61,8 +59,8 @@ $book_search_key = '%'.$_POST['book_name'].'%';
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/search_result.css">
-    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/stockin/css/search_result.css">
+    <link rel="stylesheet" href="/stockin/css/reset.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC434MBbhe6MuEUVmTwJsCnp-jwL7grBYI&callback=initMap" async defer></script>
@@ -73,30 +71,47 @@ $book_search_key = '%'.$_POST['book_name'].'%';
     <script>
         $(document).ready(function(){
             
-            /*駅名を入力して検索のためのオートコンプリート*/   
-          $("#station_name").keyup(function(e){
+/*駅名を入力して検索のためのオートコンプリート*/   
+          $(".station_name").keyup(function(e){
             e.preventDefault();
-            var search_val = $("#station_name").val();
+            var search_val = $(".station_name").val();
             $.post("autocomp_for_sta.php", {station_name : search_val}, function(data){
               if(data.length>0){
-                $("#station_name").autocomplete({
+                $(".station_name").autocomplete({
                   source: data
                 });
               }
             })
           });
+            
+            
+            
+/*SELECT BOXのためのコード*/
+            
+            
+  // プルダウン変更時に遷移
+          $('select[name=pulldown1]').change(function() {
+            if ($(this).val() != '') {
+              window.location.href = $(this).val();
+            }
+          });
+            
+            
         });
         
-        /*以下、GeoLocation APIにて現在地情報を取得*/
+        
+/*以下、GeoLocation APIにて現在地情報を取得*/
+        
 //1．位置情報の取得に成功した時の処理
+        
 function mapsInit(position) {
   try {
     //lat=緯度、lon=経度 を取得
     var lat = position.coords.latitude;
     var lon = position.coords.longitude;
 //    alert("位置情報取得完了！");
-    $('#lat').val(lat);
-    $('#lon').val(lon);
+    $('.lat').val(lat);
+    $('.lon').val(lon);
       
 
   } catch (error) {
@@ -133,10 +148,21 @@ function initMap(){
 
   navigator.geolocation.getCurrentPosition(mapsInit, mapsError, set);
 }
+    
+        
 
 </script>
 </head>
 <body>
+
+　  <select name="pulldown1">
+        <option value="">並べ替え</option>
+        <option value="book_select_keyword.php?keyword=<?= $book_search_key ?>">キーワード関連順</option>
+        <option value="book_select_date_desc.php?keyword=<?= $book_search_key ?>">発売日が新しい順</option>
+        <option value="book_select_date_asc.php?keyword=<?= $book_search_key ?>">発売日が古い順</option>
+        <option value="book_select_price_cheap.php?keyword=<?= $book_search_key ?>">価格が安い順</option>
+        <option value="book_select_price_high.php?keyword=<?= $book_search_key ?>">価格が高い順</option>
+    </select>
  
    
    
@@ -166,24 +192,35 @@ function initMap(){
                      
                       <li>タイトル: <?= e($row['book_title']) ?></li>
                       <li>著者:   <a href="author.php?author=<?= e($row['author']) ?>"><?= e($row['author']) ?></a></li>
+                      <li>発売日:   <?= e($row['publish_date']) ?> 円（税込）</li>
                       <li>価格:   <?= e($row['price']) ?> 円（税込）</li>
                       <li>
                           <form action="geo2.php" method="post">
-                              <input type="submit" value="現在地から距離順で書店を検索">
+                              <input type="submit" value="現在地から距離順で書店を検索" class="geolocation">
                               <input type="hidden" name="book_title" value="<?= e($row['book_title']) ?>">
-                              <input type="hidden" name="lat" id="lat">
-                              <input type="hidden" name="lon" id="lon">
+                              <input type="hidden" name="lat" class="lat">
+                              <input type="hidden" name="lon" class="lon">
                           </form>
                       </li> 
-                      <li></li>
-                      <li></li>
+                      
+<!--
+                      <li>
+                          <form action="library.php" method="post">
+                              <input type="submit" value="近くの図書館で検索">
+                              <input type="hidden" name="isbn_10" value="<?= e($row['isbn_10']) ?>">
+                              <input type="hidden" name="lat" class="lat">
+                              <input type="hidden" name="lon" class="lon">
+                          </form>
+                      </li>
+-->
                       <li>
                           <form action="sta2.php" method="post">
-                              <input type="text" name="station_name" id="station_name">
+                              <input type="text" name="station_name" class="station_name">
                               <input type="submit" value="駅名から検索" placeholder="駅名を入力">
                               <input type="hidden" name="book_title" value="<?= e($row['book_title']) ?>">
                           </form>
                       </li>
+                      
                   </ul>
                    
                </div>

@@ -4,10 +4,7 @@ session_start();
 
 require_once('general_user_log_status.php');
 
-if($_GET['author']){
-    
-    $author = $_GET['author'];
- }
+$author = $_GET['author'];
 
 /*DB接続*/
 require_once('db_connect.php');
@@ -22,6 +19,8 @@ try{
             FROM book
             
             WHERE author = :author
+            
+            ORDER BY publish_date ASC
             
             LIMIT 8";
     

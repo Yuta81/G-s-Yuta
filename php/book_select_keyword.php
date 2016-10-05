@@ -1,43 +1,51 @@
-<?php
+ <?php
 
 session_start();
 
 require_once('general_user_log_status.php');
 
-if($_GET['author']){
-    
-    $author = $_GET['author'];
- }
 
-/*DB接続*/
-require_once('db_connect.php');
+/*検索キーワードを代入*/
+$book_search_key = '%'.$_GET['keyword'].'%';
 
-/*SQL*/
-try{
+
+
+        
+/*DB接続*/    
+    require_once('db_connect.php');
     
-    $sql = "SELECT
-    
-            book_title, price, author, img, publish_date
-            
-            FROM book
-            
-            WHERE author = :author
-            
-            LIMIT 8";
-    
-    $stmh = $pdo->prepare($sql);
-    $stmh->bindValue(':author', $author, PDO::PARAM_STR);
-    $stmh->execute();
-    $count = $stmh->rowCount();
-    print $author.'の作品は'.$count.'件です。';
-    
-    
-}catch(PDOException $r){
-    
+
+/*SQL*/           
+     try{
+         $sql2 = 
+             
+         "SELECT 
+         
+         book_title, author, price, isbn_10, img, publish_date
+         
+         FROM book
+         
+         WHERE book_title LIKE :book_title OR author LIKE :author
+         
+         LIMIT 8"; 
+        
+            $stmt = $pdo->prepare($sql2);
+            $stmt->bindValue(':book_title', $book_search_key, PDO::PARAM_STR);
+            $stmt->bindValue(':author', $book_search_key, PDO::PARAM_STR);
+            $stmt->execute();
+            $count = $stmt->rowCount();
+            print '検索結果は'.$count.'件です。';
+         
+     }catch(PDOException $r){
         print "エラー".$r->getMessage();
     }
+        
+        
 
+        
+    
 ?>
+
 
 
 <!DOCTYPE html>
@@ -48,7 +56,6 @@ try{
     <link rel="stylesheet" href="/stockin/css/search_result.css">
     <link rel="stylesheet" href="/stockin/css/reset.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC434MBbhe6MuEUVmTwJsCnp-jwL7grBYI&callback=initMap" async defer></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC434MBbhe6MuEUVmTwJsCnp-jwL7grBYI&callback=initMap" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -72,6 +79,7 @@ try{
           });
             
             
+            
 /*SELECT BOXのためのコード*/
             
             
@@ -83,10 +91,9 @@ try{
           });
             
             
-            
         });
         
-               /*以下、GeoLocation APIにて現在地情報を取得*/
+        /*以下、GeoLocation APIにて現在地情報を取得*/
 //1．位置情報の取得に成功した時の処理
 function mapsInit(position) {
   try {
@@ -132,46 +139,50 @@ function initMap(){
 
   navigator.geolocation.getCurrentPosition(mapsInit, mapsError, set);
 }
-    </script>
+
+</script>
 </head>
 <body>
-  　　
-  　　<select name="pulldown1">
+
+　  <select name="pulldown1">
         <option value="">並べ替え</option>
-        <option value="author_keyword.php?author=<?= $author ?>">キーワード関連順</option>
-        <option value="author_publish_date_desc.php?author=<?= $author ?>">発売日が新しい順</option>
-        <option value="author_publish_date_asc.php?author=<?= $author ?>">発売日が古い順</option>
-        <option value="author_price_cheap.php?author=<?= $author ?>">価格が安い順</option>
-        <option value="author_price_high.php?author=<?= $author ?>">価格が高い順</option>
+        <option value="book_select_keyword.php?keyword=<?= $book_search_key ?>">キーワード関連順</option>
+        <option value="book_select_date_desc.php?keyword=<?= $book_search_key ?>">発売日が新しい順</option>
+        <option value="book_select_date_asc.php?keyword=<?= $book_search_key ?>">発売日が古い順</option>
+        <option value="book_select_price_cheap.php?keyword=<?= $book_search_key ?>">価格が安い順</option>
+        <option value="book_select_price_high.php?keyword=<?= $book_search_key ?>">価格が高い順</option>
     </select>
-    
+ 
+   
+   
    <table>
-    
+       
+      
 <?php
         
-    while($row = $stmh->fetch(PDO::FETCH_ASSOC)){            
+    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){            
            
 ?>
        
        <tr>
        
            <td>
-           
-            <div id="list_wrap">
-                  <div id="left">
-                      <ul>
+              <div id="list_wrap">
+               <div id="left">
+                   <ul>
 
                        <li><img src="/doc/<?= e($row['img']) ?>" width="160" height="160"></li>
-
-                      </ul>
-                  </div>
-                  
-                  <div id="right">
+                    
+                   </ul>
+               </div>
+               
+               <div id="right">
                   <ul>
+                     
                       <li>タイトル: <?= e($row['book_title']) ?></li>
-                      <li>著者:   <?= e($row['author']) ?></li>
+                      <li>著者:   <a href="author.php?author=<?= e($row['author']) ?>"><?= e($row['author']) ?></a></li>
+                      <li>発売日:   <?= e($row['publish_date']) ?> 円（税込）</li>
                       <li>価格:   <?= e($row['price']) ?> 円（税込）</li>
-                      <li>発行日:  <?= e($row['publish_date']) ?></li>
                       <li>
                           <form action="geo2.php" method="post">
                               <input type="submit" value="現在地から距離順で書店を検索">
@@ -189,20 +200,23 @@ function initMap(){
                               <input type="hidden" name="book_title" value="<?= e($row['book_title']) ?>">
                           </form>
                       </li>
-                      
                   </ul>
                    
                </div>
             </div>
            </td>
-      </tr>  
-</table>
-      
+
+       </tr>
+
+       
+       
+   </table>
+   
 <?php
-               
-    }
-
+                
+        }
+    
 ?>
-
+    
 </body>
 </html>
