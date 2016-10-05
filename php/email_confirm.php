@@ -45,7 +45,7 @@ try{
         $to = $email;
         $subject = "会員登録URL送信メール";
         $message = "以下のURLより会員登録してください。\n".
-        "http://localhost/stockin/php/general_user_regist_form.php?pre_user_id=$pre_user_id";
+        "https://jaiko.herokuapp.com/php/general_user_regist_form.php?pre_user_id=$pre_user_id";
         $header = "From:skepticalman2005@yahoo.co.jp";
         
         $send = mb_send_mail($to, $subject, $message, $header);
