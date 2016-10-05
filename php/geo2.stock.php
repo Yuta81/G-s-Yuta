@@ -52,8 +52,8 @@ require_once('db_connect.php');
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="/stockin/css/search_result.css">
-    <link rel="stylesheet" href="/stockin/css/reset.css">
+    <link rel="stylesheet" href="/css/search_result.css">
+    <link rel="stylesheet" href="/css/reset.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC434MBbhe6MuEUVmTwJsCnp-jwL7grBYI&callback=initMap" async defer></script>
     
