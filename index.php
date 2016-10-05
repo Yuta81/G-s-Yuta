@@ -38,7 +38,7 @@ session_start();
   
   <?php
     
-    require_once('general_user_log_status.php');
+    require_once('/general_user_log_status.php');
     
  ?>
    
