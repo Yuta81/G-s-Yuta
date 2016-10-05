@@ -41,7 +41,7 @@ if($_SESSION){
     
 ?>
 
- <p><a href="general_user_info.php?user=<?= e($_SESSION['general_user_name']) ?>"><?= e($_SESSION['general_user_name']) ?></a>さん（ログイン中）<a href="general_user_logout.php"><button>ログアウト</button></a></p>
+ <p><a href="php/general_user_info.php?user=<?= e($_SESSION['general_user_name']) ?>"><?= e($_SESSION['general_user_name']) ?></a>さん（ログイン中）<a href="general_user_logout.php"><button>ログアウト</button></a></p>
  
 
 <?php
@@ -50,8 +50,8 @@ if($_SESSION){
     
 ?>
    
-   <a href="general_user_login.php"><button>ログイン</button></a>
-   <a href="email_register.php"><button>会員登録</button></a>
+   <a href="php/general_user_login.php"><button>ログイン</button></a>
+   <a href="php/email_register.php"><button>会員登録</button></a>
    
 <?php
    
