@@ -1,4 +1,4 @@
- <?php
+  <?php
 
 session_start();
 
@@ -34,7 +34,7 @@ require_once('db_connect.php');
          WHERE station_name = :station_name AND book_title LIKE :book_title
          ORDER BY distance
          
-         LIMIT 4";
+         LIMIT 6";
          
 
         
@@ -70,33 +70,30 @@ require_once('db_connect.php');
 </head>
 <body>
 
-   <?php
-      $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    ?>
+
 
    <div id="list_wrap">
               
                <div id="left">
                    <ul>
 
-                       <li><img src="/doc/<?= e($row['img']) ?>" width="160" height="160"></li>
+                       <li><img src="/doc/<?= e($_POST['img']) ?>" width="160" height="160"></li>
                     
                    </ul>
                </div>
                
                <div id="right">
                   <ul>
-                      <li>タイトル: <?= e($row['book_title']) ?></li>
-                      <li>著者:   <a href="author.php?author=<?= e($row['author']) ?>"><?= e($row['author']) ?></a></li>
-                      <li>価格:   <?= e($row['price']) ?> 円（税込）</li>
-                      <li>出版社:  <?= e($row['publisher']) ?></li>
-                      <li>発売日:  <?= e($row['publish_date']) ?></li>
-                      <li>ページ数:  <?= e($row['page']) ?></li>
+                      <li>タイトル: <?= e($_POST['book_title']) ?></li>
+                      <li>著者:   <a href="author.php?author=<?= e($_POST['author']) ?>"><?= e($_POST['author']) ?></a></li>
+                      <li>価格:   <?= e($_POST['price']) ?> 円（税込）</li>
+                      <li>発売日:  <?= e($_POST['publish_date']) ?></li>
                   </ul>
                    
                </div>
                
     </div>         
+ 
  
    
    <table>
