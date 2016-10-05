@@ -39,8 +39,8 @@ try{
     if($result == true){
         
         /* 取得したメールアドレス宛にメールを送信 */
-//         mb_language("japanese");
-//         mb_internal_encoding("utf-8");
+        mb_language("japanese");
+        mb_internal_encoding("utf-8");
 
         $to = $email;
         $subject = "会員登録URL送信メール";
