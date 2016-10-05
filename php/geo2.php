@@ -28,10 +28,10 @@ require_once('db_connect.php');
          FROM stock
          JOIN book_store AS K
          ON stock.store_id = K.id
-         WHERE book_title LIKE :book_title
+         WHERE book_title = :book_title
          ORDER BY distance
          
-         LIMIT 4"; 
+         LIMIT 6"; 
         
          $stmt = $pdo->prepare($sql2);
          $stmt->bindValue(':book_title', $book_title, PDO::PARAM_STR);
@@ -39,8 +39,7 @@ require_once('db_connect.php');
          $stmt->bindValue(':longitude', $lon);
          $stmt->execute();
          $count = $stmt->rowCount();
-         $count2 = $count - 1;
-         print '検索結果は'.$count2.'件です。';
+         print '検索結果は'.$count.'件です。';
          
      }catch(PDOException $r){
         print "エラー".$r->getMessage();
@@ -63,31 +62,50 @@ require_once('db_connect.php');
     <link rel="stylesheet" href="/css/reset.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC434MBbhe6MuEUVmTwJsCnp-jwL7grBYI&callback=initMap" async defer></script>
+    
+    <script>
+        $(document).ready(function(){
+            
+    /*SELECT BOXのためのコード*/          
+            
+  // プルダウン変更時に遷移
+          $('select[name=pulldown1]').change(function() {
+            if ($(this).val() != '') {
+              window.location.href = $(this).val();
+            }
+          });
+            
+            
+        });
+    </script>
+    
 </head>
 <body>
 
-   <?php
-      $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    ?>
+    
+    <select name="pulldown1">
+        <option value="">並べ替え</option>
+        <option value="geo2.distance.php?book_title=<?= $_POST['book_title'] ?>&lat=<?= $lat ?>&lon=<?= $lon ?>&author=<?= $_POST['author'] ?>&price=<?= $_POST['price'] ?>&publish_date=<?= $_POST['publish_date'] ?>&img=<?= $_POST['img'] ?>">距離が近い順</option>
+        <option value="geo2.stock.php?book_title=<?= $_POST['book_title'] ?>&lat=<?= $lat ?>&lon=<?= $lon ?>&author=<?= $_POST['author'] ?>&price=<?= $_POST['price'] ?>&publish_date=<?= $_POST['publish_date'] ?>&img=<?= $_POST['img'] ?>">在庫がある本屋のみ</option>
+        
+    </select>
 
    <div id="list_wrap">
               
                <div id="left">
                    <ul>
 
-                       <li><img src="/doc/<?= e($row['img']) ?>" width="160" height="160"></li>
+                       <li><img src="/doc/<?= e($_POST['img']) ?>" width="160" height="160"></li>
                     
                    </ul>
                </div>
                
                <div id="right">
                   <ul>
-                      <li>タイトル: <?= e($row['book_title']) ?></li>
-                      <li>著者:   <a href="author.php?author=<?= e($row['author']) ?>"><?= e($row['author']) ?></a></li>
-                      <li>価格:   <?= e($row['price']) ?> 円（税込）</li>
-                      <li>出版社:  <?= e($row['publisher']) ?></li>
-                      <li>発売日:  <?= e($row['publish_date']) ?></li>
-                      <li>ページ数:  <?= e($row['page']) ?></li>
+                      <li>タイトル: <?= e($_POST['book_title']) ?></li>
+                      <li>著者:   <a href="author.php?author=<?= e($_POST['author']) ?>"><?= e($_POST['author']) ?></a></li>
+                      <li>価格:   <?= e($_POST['price']) ?> 円（税込）</li>
+                      <li>発売日:  <?= e($_POST['publish_date']) ?></li>
                   </ul>
                    
                </div>
@@ -100,7 +118,8 @@ require_once('db_connect.php');
       
 <?php
         
-    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){            
+    while($row = $stmt->fetch(PDO::FETCH_ASSOC)){ 
+        
            
 ?>
        
