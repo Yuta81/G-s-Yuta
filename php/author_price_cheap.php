@@ -1,5 +1,4 @@
 <?php
-
 session_cache_limiter('private_no_expire');
 session_start();
 
@@ -45,8 +44,8 @@ try{
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/search_result.css">
-    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/stockin/css/search_result.css">
+    <link rel="stylesheet" href="/stockin/css/reset.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC434MBbhe6MuEUVmTwJsCnp-jwL7grBYI&callback=initMap" async defer></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -178,15 +177,23 @@ function initMap(){
                               <input type="hidden" name="book_title" value="<?= e($row['book_title']) ?>">
                               <input type="hidden" name="lat" class="lat">
                               <input type="hidden" name="lon" class="lon">
+                              <input type="hidden" name="author" value="<?= e($row['author']) ?>">
+                              <input type="hidden" name="publish_date" value="<?= e($row['publish_date']) ?>">
+                              <input type="hidden" name="price" value="<?= e($row['price']) ?>">
+                              <input type="hidden" name="img" value="<?= e($row['img']) ?>">
                           </form>
                       </li> 
                       <li></li>
                       <li></li>
                       <li>
-                          <form action="sta2.php" method="post">
+                         <form action="sta2.php" method="post">
                               <input type="text" name="station_name" class="station_name">
                               <input type="submit" value="駅名から検索" placeholder="駅名を入力">
                               <input type="hidden" name="book_title" value="<?= e($row['book_title']) ?>">
+                              <input type="hidden" name="author" value="<?= e($row['author']) ?>">
+                              <input type="hidden" name="publish_date" value="<?= e($row['publish_date']) ?>">
+                              <input type="hidden" name="price" value="<?= e($row['price']) ?>">
+                              <input type="hidden" name="img" value="<?= e($row['img']) ?>">
                           </form>
                       </li>
                       
