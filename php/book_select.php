@@ -197,7 +197,7 @@ function initMap(){
                       <li>価格:   <?= e($row['price']) ?> 円（税込）</li>
                       <li>
                           <form action="geo2.php" method="post">
-                              <input type="submit" value="現在地から距離順で書店を検索" class="geolocation">
+                              <input type="submit" value="現在地から距離順で書店を検索">
                               <input type="hidden" name="book_title" value="<?= e($row['book_title']) ?>">
                               <input type="hidden" name="lat" class="lat">
                               <input type="hidden" name="lon" class="lon">
