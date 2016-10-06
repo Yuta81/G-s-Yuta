@@ -22,7 +22,7 @@ try{
             
             ORDER BY publish_date DESC
             
-            LIMIT 8";
+            LIMIT 6";
     
     $stmh = $pdo->prepare($sql);
     $stmh->bindValue(':author', $author, PDO::PARAM_STR);
