@@ -1,5 +1,6 @@
   <?php
 
+session_cache_limiter('private_no_expire');
 session_start();
 
 require_once('general_user_log_status.php');
@@ -58,7 +59,7 @@ $book_search_key = '%'.$_POST['book_name'].'%';
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Book Search Result</title>
     <link rel="stylesheet" href="/css/search_result.css">
     <link rel="stylesheet" href="/css/reset.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
