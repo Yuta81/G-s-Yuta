@@ -23,7 +23,7 @@ try{
             
             WHERE author = :author
             
-            LIMIT 8";
+            LIMIT 6";
     
     $stmh = $pdo->prepare($sql);
     $stmh->bindValue(':author', $author, PDO::PARAM_STR);
