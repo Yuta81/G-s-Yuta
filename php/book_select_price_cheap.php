@@ -1,5 +1,6 @@
   <?php
 
+session_cache_limiter('private_no_expire');
 session_start();
 
 require_once('general_user_log_status.php');
@@ -183,7 +184,7 @@ function initMap(){
                      
                       <li>タイトル: <?= e($row['book_title']) ?></li>
                       <li>著者:   <a href="author.php?author=<?= e($row['author']) ?>"><?= e($row['author']) ?></a></li>
-                      <li>発売日:   <?= e($row['publish_date']) ?> 円（税込）</li>
+                      <li>発売日:   <?= e($row['publish_date']) ?></li>
                       <li>価格:   <?= e($row['price']) ?> 円（税込）</li>
                       <li>
                              <form action="geo2.php" method="post">
