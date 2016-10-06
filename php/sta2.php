@@ -1,5 +1,5 @@
-  <?php
-
+ <?php
+session_cache_limiter('private_no_expire');
 session_start();
 
 require_once('general_user_log_status.php');
@@ -43,8 +43,7 @@ require_once('db_connect.php');
             $stmt->bindValue(':station_name', $station_name, PDO::PARAM_STR);
             $stmt->execute();
             $count = $stmt->rowCount();
-            $count2 = $count - 1;
-            print '検索結果は'.$count2.'件です。';
+            print '検索結果は'.$count.'件です。';
         
          
      }catch(PDOException $r){
@@ -64,13 +63,34 @@ require_once('db_connect.php');
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/search_result.css">
-    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/stockin/css/search_result.css">
+    <link rel="stylesheet" href="/stockin/css/reset.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    
+    <script>
+        $(document).ready(function(){
+            
+    /*SELECT BOXのためのコード*/          
+            
+  // プルダウン変更時に遷移
+          $('select[name=pulldown1]').change(function() {
+            if ($(this).val() != '') {
+              window.location.href = $(this).val();
+            }
+          });
+            
+            
+        });
+    </script>
 </head>
 <body>
 
-
+   <select name="pulldown1">
+        <option value="">並べ替え</option>
+        <option value="sta2.distance.php?book_title=<?= $_POST['book_title'] ?>&station_name=<?= $station_name ?>&author=<?= $_POST['author'] ?>&price=<?= $_POST['price'] ?>&publish_date=<?= $_POST['publish_date'] ?>&img=<?= $_POST['img'] ?>">距離が近い順</option>
+        <option value="sta2.stock.php?book_title=<?= $_POST['book_title'] ?>&station_name=<?= $station_name ?>&author=<?= $_POST['author'] ?>&price=<?= $_POST['price'] ?>&publish_date=<?= $_POST['publish_date'] ?>&img=<?= $_POST['img'] ?>">在庫がある本屋のみ</option>
+        
+    </select>
 
    <div id="list_wrap">
               
@@ -120,7 +140,7 @@ require_once('db_connect.php');
                        </li>
                        <li>住所: <?= e($row['address']) ?></li>
                        <li>TEL: <?= e($row['tel']) ?></li>
-                       <li><?= e($row['station_name']) ?>駅からの距離: <?= e($row['distance']) ?> km</li>
+                       <li><?= e($row['station_name']) ?>駅からの距離: 約 <?= e($row['distance']) ?> km</li>
                        <li>在庫数:  <?= e($row['stock']) ?> （最新更新日:<?= e($row['update_time']) ?>）</li>
                        
                       </ul>
