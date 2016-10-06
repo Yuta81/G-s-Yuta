@@ -132,7 +132,7 @@ require_once('db_connect.php');
                        </li>
                        <li>住所: <?= e($row['address']) ?></li>
                        <li>TEL: <?= e($row['tel']) ?></li>
-                       <li>現在地からの距離: <?= e($row['distance']) ?> km</li>
+                       <li>現在地からの距離: 約 <?= e($row['distance']) ?> km</li>
                        <li>在庫数:  <?= e($row['stock']) ?> （最新更新日:<?= e($row['update_time']) ?>）</li>
                        
                       </ul>
