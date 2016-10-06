@@ -1,6 +1,5 @@
- <?php
+  <?php
 
-session_cache_limiter('private_no_expire');
 session_start();
 
 require_once('general_user_log_status.php');
@@ -54,8 +53,8 @@ $book_search_key = '%'.$_GET['keyword'].'%';
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/search_result.css">
-    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/stockin/css/search_result.css">
+    <link rel="stylesheet" href="/stockin/css/reset.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC434MBbhe6MuEUVmTwJsCnp-jwL7grBYI&callback=initMap" async defer></script>
@@ -185,20 +184,28 @@ function initMap(){
                       <li>発売日:   <?= e($row['publish_date']) ?> 円（税込）</li>
                       <li>価格:   <?= e($row['price']) ?> 円（税込）</li>
                       <li>
-                          <form action="geo2.php" method="post">
+                              <form action="geo2.php" method="post">
                               <input type="submit" value="現在地から距離順で書店を検索">
                               <input type="hidden" name="book_title" value="<?= e($row['book_title']) ?>">
                               <input type="hidden" name="lat" class="lat">
                               <input type="hidden" name="lon" class="lon">
+                              <input type="hidden" name="author" value="<?= e($row['author']) ?>">
+                              <input type="hidden" name="publish_date" value="<?= e($row['publish_date']) ?>">
+                              <input type="hidden" name="price" value="<?= e($row['price']) ?>">
+                              <input type="hidden" name="img" value="<?= e($row['img']) ?>">
                           </form>
                       </li> 
-                      <li></li>
-                      <li></li>
+                      
+
                       <li>
                           <form action="sta2.php" method="post">
                               <input type="text" name="station_name" class="station_name">
                               <input type="submit" value="駅名から検索" placeholder="駅名を入力">
                               <input type="hidden" name="book_title" value="<?= e($row['book_title']) ?>">
+                              <input type="hidden" name="author" value="<?= e($row['author']) ?>">
+                              <input type="hidden" name="publish_date" value="<?= e($row['publish_date']) ?>">
+                              <input type="hidden" name="price" value="<?= e($row['price']) ?>">
+                              <input type="hidden" name="img" value="<?= e($row['img']) ?>">
                           </form>
                       </li>
                   </ul>
