@@ -1,22 +1,16 @@
-  <?php
+   <?php
 
 session_cache_limiter('private_no_expire');
 session_start();
 
 require_once('general_user_log_status.php');
-    
+
 
 /*検索キーワードを代入*/
 $book_search_key = '%'.$_POST['book_name'].'%';
 
 
-/*入力内容に不備がないかの確認*/    
-    if(!isset($_POST['book_name']) || $_POST['book_name']==""){
-    
-        print '検索キーワードが未入力です';
-        exit;
-        
-    }
+
         
 /*DB接続*/    
     require_once('db_connect.php');
@@ -59,9 +53,11 @@ $book_search_key = '%'.$_POST['book_name'].'%';
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Book Search Result</title>
+    <title>Document</title>
     <link rel="stylesheet" href="/css/search_result.css">
     <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC434MBbhe6MuEUVmTwJsCnp-jwL7grBYI&callback=initMap" async defer></script>
@@ -100,11 +96,8 @@ $book_search_key = '%'.$_POST['book_name'].'%';
             
         });
         
-        
-/*以下、GeoLocation APIにて現在地情報を取得*/
-        
+        /*以下、GeoLocation APIにて現在地情報を取得*/
 //1．位置情報の取得に成功した時の処理
-        
 function mapsInit(position) {
   try {
     //lat=緯度、lon=経度 を取得
@@ -149,8 +142,6 @@ function initMap(){
 
   navigator.geolocation.getCurrentPosition(mapsInit, mapsError, set);
 }
-    
-        
 
 </script>
 </head>
@@ -166,37 +157,46 @@ function initMap(){
     </select>
  
    
-   
-   <table>
-       
-      
+<div class="container-fluid">
+  <div class="row">
+   <div class="cols-xs-8 col-sm-8">
+
 <?php
         
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)){            
            
 ?>
+   
+     
        
-       <tr>
-       
-           <td>
-              <div id="list_wrap">
-               <div id="left">
-                   <ul>
-
-                       <li><img src="/doc/<?= e($row['img']) ?>" width="160" height="160"></li>
-                    
-                   </ul>
-               </div>
-               
-               <div id="right">
-                  <ul>
+         <div class="row" style="margin-bottom: 20px;">
+    
+              
+                <div class="col-xs-5 col-sm-3">
+    
+                    <img src="/doc/<?= e($row['img']) ?>" class="img-responsive">
+  
+                </div>
+              
+           
+                  
+                <div class="col-xs-7 col-sm-3" style="height:160px;">
+                  
+                    <ul>
                      
-                      <li>タイトル: <?= e($row['book_title']) ?></li>
-                      <li>著者:   <a href="author.php?author=<?= e($row['author']) ?>"><?= e($row['author']) ?></a></li>
-                      <li>発売日:   <?= e($row['publish_date']) ?></li>
-                      <li>価格:   <?= e($row['price']) ?> 円（税込）</li>
-                      <li>
-                          <form action="geo2.php" method="post">
+                      <li style="margin-bottom:10px; margin-top:10px;">タイトル: <?= e($row['book_title']) ?></li>
+                      <li style="margin-bottom:10px;">著者:   <a href="author.php?author=<?= e($row['author']) ?>"><?= e($row['author']) ?></a></li>
+                      <li style="margin-bottom:10px;">発売日:   <?= e($row['publish_date']) ?></li>
+                      <li style="margin-bottom:10px;">価格:   <?= e($row['price']) ?> 円（税込）</li>
+                      
+                    </ul>
+                  
+                 </div>  
+                 
+                 <div class="col-xs-12 col-sm-6" style="height:160px;">
+                     <ul>
+                         <li style="margin-bottom:10px; margin-top:40px;">
+                            <form action="geo2.php" method="post">
                               <input type="submit" value="現在地から距離順で書店を検索">
                               <input type="hidden" name="book_title" value="<?= e($row['book_title']) ?>">
                               <input type="hidden" name="lat" class="lat">
@@ -205,20 +205,10 @@ function initMap(){
                               <input type="hidden" name="publish_date" value="<?= e($row['publish_date']) ?>">
                               <input type="hidden" name="price" value="<?= e($row['price']) ?>">
                               <input type="hidden" name="img" value="<?= e($row['img']) ?>">
-                          </form>
-                      </li> 
-                      
-<!--
-                      <li>
-                          <form action="library.php" method="post">
-                              <input type="submit" value="近くの図書館で検索">
-                              <input type="hidden" name="isbn_10" value="<?= e($row['isbn_10']) ?>">
-                              <input type="hidden" name="lat" class="lat">
-                              <input type="hidden" name="lon" class="lon">
-                          </form>
-                      </li>
--->
-                      <li>
+                            </form>
+                         </li> 
+                         
+                         <li>
                           <form action="sta2.php" method="post">
                               <input type="text" name="station_name" class="station_name">
                               <input type="submit" value="駅名から検索" placeholder="駅名を入力">
@@ -229,24 +219,27 @@ function initMap(){
                               <input type="hidden" name="img" value="<?= e($row['img']) ?>">
                           </form>
                       </li>
-                      
-                  </ul>
-                   
-               </div>
+                     </ul>
+                 </div>
+              
+
             </div>
-           </td>
-
-       </tr>
 
        
        
-   </table>
+       
+
    
 <?php
                 
         }
     
 ?>
+
+
+ </div>
+ </div> 
+</div>
     
 </body>
 </html>
